@@ -9,6 +9,8 @@
  
  \date 2008-10-12
  
+ \version 1.0.1
+ 
  This abstract class enhances the functionality of NSLog in several ways:
  
  -#	It creates debug logging commands as macros which only compile to functional code
@@ -44,6 +46,11 @@
  I personally added the versions of the macros that do "ordinary" enhanced logging
  and do not get compiled out.
  
+ 2009-08-23 -	Changed +switchLoggingToFile: to +switchLoggingToFile:fromAppDir:
+				to allow the use of the application directory as a base for the
+				logging file path.
+ 2009-08-23 -	Added #define ASLogVersion to track version
+ 
  */
 
 #import <Foundation/NSDebug.h>
@@ -53,7 +60,10 @@
 
 #pragma mark Macro defintions
 
-
+/*! \def ASLogVersion
+ @brief String holding version number for the utilities
+ */
+#define ASLogVersion "1.0.1"
 
 /*!
  \name Debug Logging macros. 
@@ -244,7 +254,7 @@
 + (void)setLogOn: (BOOL) logOn;
 
 //! @brief Switches stderr to logging to a user specified file
-+ (void)switchLoggingToFile:(NSString *)filePath;
++ (void)switchLoggingToFile:(NSString *)filePath fromAppDir:(BOOL)useAppDirAsBase;
 
 //! @brief Switches stderr back to logging to default output stream
 + (void)restoreStdErr;

@@ -390,14 +390,17 @@ static char __sStdErrPath[PATH_MAX+1];
  
  NOTE: The system intercepts NSLog() output it and it ends up in /var/log/system.log.
  This call does not prevent the logging to system.log, simply gives you an additional,
- more accessible log, not full of irrelevant kunk.
+ more accessible log, not full of irrelevant junk.
  
  @param filePath - NSString * holding either:
  
-	- a simple filename which means logging ends up in ~/Library/Logs/\<filePath\>
 	- a full pathname in which case that path will be used.
+	- a simple filename or partial pathname which means:
+		if useAppDirAsBase is YES logging goes to /path/to/app/dir/\<filePath\>
+		if useAppDirAsBase is NO logging goes to ~/\<filePath\>
+	- nil which means logging goes to ~/Library/Logs/\<AppName\>.log and useAppDirAsBase is ignored
  */
-+ (void)switchLoggingToFile:(NSString *)filePath
++ (void)switchLoggingToFile:(NSString *)filePath fromAppDir:(BOOL)useAppDirAsBase
 {
 	NSString *logPath;
 	
@@ -408,8 +411,19 @@ static char __sStdErrPath[PATH_MAX+1];
 			// absolute: (begins with /)
 			logPath = filePath;
 		} else {
-			// relative: assume is relative to home folder
-			logPath = [NSHomeDirectory() stringByAppendingPathComponent:filePath];
+			// relative:
+			if (!useAppDirAsBase) {
+				//	assume is relative to home folder
+				logPath = [NSHomeDirectory() stringByAppendingPathComponent:filePath];
+			} else {
+				//	relative to the app's diretcory
+				NSBundle *appBundle = [NSBundle mainBundle];
+				NSString *appBundlePath = [appBundle bundlePath];
+				NSString *appDirPath = [appBundlePath stringByDeletingLastPathComponent];
+				
+				logPath = [appDirPath stringByAppendingPathComponent:filePath];
+			}
+			
 		}
 	} else {
 		// No log file passed so create a log file in ~/Library/Logs
