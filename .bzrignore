@@ -1,0 +1,11 @@
+*/build
+*/html
+.DS_Store
+research
+build
+(*)
+*.pbxuser
+*.perspectivev3
+*.mode1v3
+*.mode2v3
+*.orig
