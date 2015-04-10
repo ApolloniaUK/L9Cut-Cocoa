@@ -227,8 +227,7 @@ extern void QuietLog (NSString *format, ...);
 
 /*!
  \name Enhanced Normal Logging methods. 
- - Only fire when either DEBUG_LOG_AUTO_ENABLE is defined or the environment
- variable NSDebugEnabled exists and is set to YES
+ - Always fire
  */
 //@{
 
@@ -245,8 +244,8 @@ extern void QuietLog (NSString *format, ...);
 
 /*!
  \name WARNING Logging methods. 
- - Only fire when either DEBUG_LOG_AUTO_ENABLE is defined or the environment
- variable NSDebugEnabled exists and is set to YES
+ - Always fire
+ - Always have 'WARNING' in the output so easier to spot in busy log
  */
 //@{
 
