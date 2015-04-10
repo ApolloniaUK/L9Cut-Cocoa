@@ -10,6 +10,8 @@
 		E7C3D5D61AC91F4300D7C471 /* LNCCutQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = E7C3D5D51AC91F4300D7C471 /* LNCCutQueue.m */; };
 		E7C3D5D91ACAC8DF00D7C471 /* LNCFileListItem.m in Sources */ = {isa = PBXBuildFile; fileRef = E7C3D5D81ACAC8DF00D7C471 /* LNCFileListItem.m */; };
 		E7C3D5DC1ACB53AA00D7C471 /* LNCDebugTools.m in Sources */ = {isa = PBXBuildFile; fileRef = E7C3D5DB1ACB53AA00D7C471 /* LNCDebugTools.m */; };
+		E7C3D5E21AD8257400D7C471 /* ASLog.m in Sources */ = {isa = PBXBuildFile; fileRef = E7C3D5E11AD8257400D7C471 /* ASLog.m */; };
+		E7C3D5E51AD825A700D7C471 /* NSAlert+SynchronousSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = E7C3D5E41AD825A700D7C471 /* NSAlert+SynchronousSheet.m */; };
 		E7C7934D1AB8E80E003909C8 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7C7934C1AB8E80E003909C8 /* Cocoa.framework */; };
 		E7C793571AB8E80E003909C8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E7C793551AB8E80E003909C8 /* InfoPlist.strings */; };
 		E7C793591AB8E80E003909C8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E7C793581AB8E80E003909C8 /* main.m */; };
@@ -42,6 +44,10 @@
 		E7C3D5D81ACAC8DF00D7C471 /* LNCFileListItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LNCFileListItem.m; sourceTree = "<group>"; };
 		E7C3D5DA1ACB53AA00D7C471 /* LNCDebugTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LNCDebugTools.h; sourceTree = "<group>"; };
 		E7C3D5DB1ACB53AA00D7C471 /* LNCDebugTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LNCDebugTools.m; sourceTree = "<group>"; };
+		E7C3D5E01AD8257400D7C471 /* ASLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ASLog.h; path = ASLog/ASLog.h; sourceTree = "<group>"; };
+		E7C3D5E11AD8257400D7C471 /* ASLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ASLog.m; path = ASLog/ASLog.m; sourceTree = "<group>"; };
+		E7C3D5E31AD825A700D7C471 /* NSAlert+SynchronousSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSAlert+SynchronousSheet.h"; path = "NSAlert-SynchronousSheet/NSAlert+SynchronousSheet.h"; sourceTree = "<group>"; };
+		E7C3D5E41AD825A700D7C471 /* NSAlert+SynchronousSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSAlert+SynchronousSheet.m"; path = "NSAlert-SynchronousSheet/NSAlert+SynchronousSheet.m"; sourceTree = "<group>"; };
 		E7C793491AB8E80E003909C8 /* L9Cut.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = L9Cut.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7C7934C1AB8E80E003909C8 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		E7C7934F1AB8E80E003909C8 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -87,6 +93,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E7C3D5E61AD825BC00D7C471 /* ASLog */ = {
+			isa = PBXGroup;
+			children = (
+				E7C3D5E01AD8257400D7C471 /* ASLog.h */,
+				E7C3D5E11AD8257400D7C471 /* ASLog.m */,
+			);
+			name = ASLog;
+			sourceTree = "<group>";
+		};
+		E7C3D5E71AD825CC00D7C471 /* NSAlert+SynchronousSheet */ = {
+			isa = PBXGroup;
+			children = (
+				E7C3D5E31AD825A700D7C471 /* NSAlert+SynchronousSheet.h */,
+				E7C3D5E41AD825A700D7C471 /* NSAlert+SynchronousSheet.m */,
+			);
+			name = "NSAlert+SynchronousSheet";
+			sourceTree = "<group>";
+		};
 		E7C793401AB8E80D003909C8 = {
 			isa = PBXGroup;
 			children = (
@@ -129,6 +153,7 @@
 		E7C793521AB8E80E003909C8 /* L9Cut */ = {
 			isa = PBXGroup;
 			children = (
+				E7C3D5E61AD825BC00D7C471 /* ASLog */,
 				E7C7935E1AB8E80E003909C8 /* LNCAppDelegate.h */,
 				E7C7935F1AB8E80E003909C8 /* LNCAppDelegate.m */,
 				E7C3D5DA1ACB53AA00D7C471 /* LNCDebugTools.h */,
@@ -139,6 +164,7 @@
 				E7C793831AB959F9003909C8 /* LNCCutTask.m */,
 				E7C3D5D41AC91F4300D7C471 /* LNCCutQueue.h */,
 				E7C3D5D51AC91F4300D7C471 /* LNCCutQueue.m */,
+				E7C3D5E71AD825CC00D7C471 /* NSAlert+SynchronousSheet */,
 				E7C793611AB8E80E003909C8 /* MainMenu.xib */,
 				E7C793641AB8E80E003909C8 /* Images.xcassets */,
 				E7C793531AB8E80E003909C8 /* Supporting Files */,
@@ -277,10 +303,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E7C3D5E21AD8257400D7C471 /* ASLog.m in Sources */,
 				E7C793601AB8E80E003909C8 /* LNCAppDelegate.m in Sources */,
 				E7C3D5D91ACAC8DF00D7C471 /* LNCFileListItem.m in Sources */,
 				E7C3D5DC1ACB53AA00D7C471 /* LNCDebugTools.m in Sources */,
 				E7C793591AB8E80E003909C8 /* main.m in Sources */,
+				E7C3D5E51AD825A700D7C471 /* NSAlert+SynchronousSheet.m in Sources */,
 				E7C3D5D61AC91F4300D7C471 /* LNCCutQueue.m in Sources */,
 				E7C793841AB959F9003909C8 /* LNCCutTask.m in Sources */,
 			);
