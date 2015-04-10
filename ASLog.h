@@ -29,15 +29,18 @@
  packaged up in a neat utility class:
  
  http://www.hopelessgeek.com/2005/11/18/better-logging
+ (now <https://web.archive.org/web/20110712220001/http://www.hopelessgeek.com/2005/11/18/better-logging>)
  
  I started with Adam's class and enhanced the macros as suggested on:
  
  http://powerof2games.com/node/10
+ (now <http://www.hopelessgeek.com/2005/11/18/better-logging>)
  
  to be absolutely sure the macros were compiled out with no side effects. I added
  a "Warning" variant, which would not compile out as suggested in:
  
  http://mooseyard.com/Jens/2007/05/uncle-jenss-coding-tips/
+ (now <https://web.archive.org/web/20090319202059/http://mooseyard.com/Jens/2007/05/uncle-jenss-coding-tips/>)
  
  and the idea of reassigning stderr came from:
  
@@ -122,6 +125,11 @@
  
  */
 //@{
+
+/*! \def ASNSLog
+ @brief NSLog, unadorned
+ */
+#define ASNSLog(s, ...) do { [ASLog log:(s),##__VA_ARGS__]; } while (0)
 
 /*! \def ASFlLog
  @brief NSLog + logs the sourcefile and line number
@@ -213,10 +221,12 @@
 
 /*!
  \name Enhanced Normal Logging methods. 
- - Only fire when either DEBUG_LOG_AUTO_ENABLE is defined or the environment
- variable NSDebugEnabled exists and is set to YES
+ - Always fire
  */
 //@{
+
+//! @brief NSLog, nothing else.
++ (void)log:(NSString *)format, ...;
 
 //! @brief NSLog, also logs source file and line number
 + (void)log:(char *)sourceFile lineNumber:(int)lineNumber format:(NSString *)format, ...;
@@ -228,8 +238,8 @@
 
 /*!
  \name WARNING Logging methods. 
- - Only fire when either DEBUG_LOG_AUTO_ENABLE is defined or the environment
- variable NSDebugEnabled exists and is set to YES
+ - Always fire
+ - Always have 'WARNING' in the output so easier to spot in busy log
  */
 //@{
 

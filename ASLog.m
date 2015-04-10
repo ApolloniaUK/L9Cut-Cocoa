@@ -189,6 +189,32 @@ static char __sStdErrPath[PATH_MAX+1];
 #pragma mark Release logging methods
 
 /*!
+ Basic NSLog, Called by the #ASNSLog macro.
+ 
+ Calling this method via the macro calls un-adorned  NSLog().
+ 
+ Logging cannot be disabled. Logging is directed to whatever stream stderr is currently
+ directed to.
+ 
+ @param format - NSString * that holds the formatting string for NSLog().
+ 
+ @param ...	- variadic argument list.
+ */
++ (void)log:(NSString *)format, ...;
+{
+    va_list ap;
+    NSString *print;
+    va_start(ap, format);
+    print = [[NSString alloc] initWithFormat:format arguments:ap];
+    va_end(ap);
+    
+    NSLog(@"%@", print);
+    
+    [print release];
+}
+
+
+/*!
  Enhances NSLog, Called by the #ASFlLog macro.
  
  Calling this method via the macro enhances NSLog() by adding the source file name
