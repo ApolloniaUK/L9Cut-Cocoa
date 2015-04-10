@@ -4,24 +4,83 @@
  
  Implementation for the ASLog utility class.
  
-*/
+ */
 
 #import "ASLog.h"
 
 #pragma mark Static globals
 
-/*! Flag boolean - if YES the log...: methods do log their messages. Is NO by default
- unless the "NSDebugEnabled" environment variable exists and is set to YES. This flag
- can be changed by calls to setLogOn: allowing programmatic control of debug logging.
+/*! \var BOOL __sDebugLoggingOn
+ \brief Controls logging by log...:/debugLog...: methods
+ 
+ Flag boolean - if YES the log...: methods do log their messages. Is NO by default.
+ 
+ Set to YES if the DEBUG_LOG_AUTO_ENABLE macro is defined or the "NSDebugEnabled" 
+ environment variable exists and is set to YES. 
+ 
+ This flag may also be changed by calling the  +setLogOn: method, allowing programmatic
+ control of debug logging.
  
  It does not affect the warn...: methods.
  */
 static BOOL __sDebugLoggingOn = NO;
 
+/*! \var void (*__sCurLogFunc)(NSString *format, ...);
+ \brief Function pointer to the logging function used by log...:/debugLog...:/warn...: methods.
+ 
+ Function pointer - called by all the log...:/debugLog...:/warn...: methods to output their
+ log text. Currently will be either NSLog() (the default) or QuietLog().
+ 
+ QUietLog() can be selected at build time by defining the DEBUG_LOG_QUIET_ENABLE macro
+ or programmatically with the +setQuietOn: method at runtime.
+ */
+static void (*__sCurLogFunc)(NSString *format, ...);
+
 /*! Buffer to hold the path of the stderr stream on entry. Needed so we can restore
  stderr after redirection if required.
  */
 static char __sStdErrPath[PATH_MAX+1];
+
+
+/*!
+ \brief Optional quieter substitute for NSLog() for logging output.
+ 
+ NSLog() is very noisy - all that date, time and process clutter beginning each line. 
+ QuietLog() prints only what you ask it to.
+ 
+ QuietLog() has one significant difference to NSLog(). NSLog() output is intercepted by 
+ the system and sent to /var/log/system.log. Logging is only directed to whatever stream 
+ stderr is currently directed to.
+ 
+ The ASLog logging/warning methods can be switched to use QuietLog() thse ways:
+ 
+	Programmatically: call the +setQuietOn: class method
+	
+	At compile time by defining the DEBUG_LOG_QUIET_ENABLE macro
+ 
+ QuietLog() created by Mark Dalrymple @ Big Nerd Ranch
+ <https://www.bignerdranch.com/blog/a-quieter-log/>
+ 
+ @param format - NSString * that holds the formatting string (vide NSLog()).
+ 
+ @param ...	- variadic argument list.
+ */
+void QuietLog (NSString *format, ...)
+{
+    va_list argList;
+    va_start (argList, format);
+	
+    NSString *message = [[NSString alloc] initWithFormat: format
+											   arguments: argList];
+	
+	// no ARC in this build so...
+	[message autorelease];
+	
+    va_end (argList);
+	
+    fprintf (stderr, "%s\n", [message UTF8String]);
+	
+}
 
 
 #pragma mark Implementation starts here.
@@ -50,6 +109,9 @@ static char __sStdErrPath[PATH_MAX+1];
  If either of these is true then it sets the static BOOL __sDebugLoggingOn to YES and
  so enables debug logging.
  
+ In addition it checks whether DEBUG_LOG_QUIET_ENABLE is defined and if it is sets 
+ __sCurLogFunc to point to QuietLog(), otherwise it points the variable at NSLog()
+ 
  The method also saves the output stream for stderr on entry to preserve it for later 
  restoration if the output stream is changed.
  
@@ -67,6 +129,11 @@ static char __sStdErrPath[PATH_MAX+1];
     if(strcmp(env, "YES") == 0)
         __sDebugLoggingOn = YES;
 	
+	// initialise the QuietLog() selection static boolean
+	#ifdef DEBUG_LOG_QUIET_ENABLE
+		__sCurLogFunc = QuietLog;
+	#endif
+	
 	// Save the current stderr output for later use
 	int fd;
 	fd = fileno(stderr);
@@ -79,7 +146,7 @@ static char __sStdErrPath[PATH_MAX+1];
 /*!
  A simple substitute for NSLog(), called by the #ASDNSLog macro.
  
- The macro could simply call NSLog with the same paramters but then we would loose
+ The macro could simply call NSLog with the same parameters but then we would loose
  the ability to switch logging on or off.
  
  Logging is controlled via the the static BOOL __sDebugLoggingOn which is in turn
@@ -101,7 +168,7 @@ static char __sStdErrPath[PATH_MAX+1];
     print = [[NSString alloc] initWithFormat:format arguments:ap];
     va_end(ap);
     
-    NSLog(@"%@", print);
+    __sCurLogFunc(@"%@", print);
     
     [print release];
 }
@@ -139,7 +206,7 @@ static char __sStdErrPath[PATH_MAX+1];
     print = [[NSString alloc] initWithFormat:format arguments:ap];
     va_end(ap);
     
-    NSLog(@"%s:%d %@", [[file lastPathComponent] UTF8String], lineNumber, print);
+    __sCurLogFunc(@"%s:%d %@", [[file lastPathComponent] UTF8String], lineNumber, print);
     
     [print release];
 }
@@ -181,7 +248,7 @@ static char __sStdErrPath[PATH_MAX+1];
     print = [[NSString alloc] initWithFormat:format arguments:ap];
     va_end(ap);
     
-    NSLog(@"%s:%d in %@ %@", [[file lastPathComponent] UTF8String], lineNumber, function, print);
+    __sCurLogFunc(@"%s:%d in %@ %@", [[file lastPathComponent] UTF8String], lineNumber, function, print);
     
     [print release];
 }
@@ -208,7 +275,7 @@ static char __sStdErrPath[PATH_MAX+1];
     print = [[NSString alloc] initWithFormat:format arguments:ap];
     va_end(ap);
     
-    NSLog(@"%@", print);
+    __sCurLogFunc(@"%@", print);
     
     [print release];
 }
@@ -242,7 +309,7 @@ static char __sStdErrPath[PATH_MAX+1];
     print = [[NSString alloc] initWithFormat:format arguments:ap];
     va_end(ap);
     
-    NSLog(@"%s:%d %@", [[file lastPathComponent] UTF8String], lineNumber, print);
+    __sCurLogFunc(@"%s:%d %@", [[file lastPathComponent] UTF8String], lineNumber, print);
     
     [print release];
 }
@@ -280,7 +347,7 @@ static char __sStdErrPath[PATH_MAX+1];
     print = [[NSString alloc] initWithFormat:format arguments:ap];
     va_end(ap);
     
-    NSLog(@"%s:%d in %@ %@", [[file lastPathComponent] UTF8String], lineNumber, function, print);
+    __sCurLogFunc(@"%s:%d in %@ %@", [[file lastPathComponent] UTF8String], lineNumber, function, print);
     
     [print release];
 }
@@ -311,7 +378,7 @@ static char __sStdErrPath[PATH_MAX+1];
     print = [[NSString alloc] initWithFormat:format arguments:ap];
     va_end(ap);
     
-    NSLog(@"WARNING: %@", print);
+    __sCurLogFunc(@"WARNING: %@", print);
     
     [print release];
 }
@@ -345,7 +412,7 @@ static char __sStdErrPath[PATH_MAX+1];
     print = [[NSString alloc] initWithFormat:format arguments:ap];
     va_end(ap);
     
-    NSLog(@"WARNING: %s:%d %@", [[file lastPathComponent] UTF8String], lineNumber, print);
+    __sCurLogFunc(@"WARNING: %s:%d %@", [[file lastPathComponent] UTF8String], lineNumber, print);
     
     [print release];
 }
@@ -383,7 +450,7 @@ static char __sStdErrPath[PATH_MAX+1];
     print = [[NSString alloc] initWithFormat:format arguments:ap];
     va_end(ap);
     
-    NSLog(@"WARNING: %s:%d in %@ %@", [[file lastPathComponent] UTF8String], lineNumber, function, print);
+    __sCurLogFunc(@"WARNING: %s:%d in %@ %@", [[file lastPathComponent] UTF8String], lineNumber, function, print);
     
     [print release];
 }
@@ -393,8 +460,8 @@ static char __sStdErrPath[PATH_MAX+1];
 /*!
  Programmatic control of logging for the debug logging methods.
  
- Even if logging is not enabled via the DEBUG_LOG_AUTO_ENABLE macro or the environment 
- variable NSDebugEnabled you can enable/disable it at runtime with this call. 
+ Even if logging is not enabled via the DEBUG_LOG_AUTO_ENABLE macro or the environment
+ variable NSDebugEnabled you can enable/disable it at runtime with this call.
  
  This has no effect on the "Normal" or "Warning" logging methods and will have no
  effect if the debugging macros have been compiled out because the BUILD_WITH_DEBUG_LOGGING
@@ -409,12 +476,34 @@ static char __sStdErrPath[PATH_MAX+1];
 
 
 /*!
+ @brief Programmatic control of use of QuietLog() or NSLog().
+ 
+ Switched the logging/warning methods between using NSLog() and QuietLog().
+ The latter behaves exactly the same as NSLog() except:
+ 
+	it is not intercepted and sent to /var/log/system.log
+	
+	it does not prepend the log line with all that date/time/process mess.
+ 
+ @param quietOn - BOOL, if YES then logging functions will call QuietLog()
+ */
++ (void) setQuietOn: (BOOL) quietOn
+{
+	if (quietOn) {
+		__sCurLogFunc = QuietLog;
+	} else {
+		__sCurLogFunc = NSLog;
+	}
+}
+
+
+/*!
  Redirect stderr output.
  
  By default stderr is sent to one of the /dev/tty streams. This method allows you 
  to redirect it to a convenient file.
  
- NOTE: The system intercepts NSLog() output it and it ends up in /var/log/system.log.
+ NOTE: The system intercepts NSLog() output and it ends up in /var/log/system.log.
  This call does not prevent the logging to system.log, simply gives you an additional,
  more accessible log, not full of irrelevant junk.
  

@@ -173,6 +173,12 @@
 
 //@} (Warning Logging macros)
 
+#pragma mark Prototypes
+
+/*! \fn QuietLog (NSString *format, ...)
+ @brief A quieter NSLog()
+ */
+extern void QuietLog (NSString *format, ...);
 
 
 #pragma mark Class interface
@@ -262,6 +268,9 @@
 
 //! @brief Enables/Disables logging at runtime for the debug logging methods
 + (void)setLogOn: (BOOL) logOn;
+
+//! @brief Switches logging methods between using NSLog() or QuietLog()
++ (void) setQuietOn: (BOOL) quietOn;
 
 //! @brief Switches stderr to logging to a user specified file
 + (void)switchLoggingToFile:(NSString *)filePath fromAppDir:(BOOL)useAppDirAsBase;
