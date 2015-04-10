@@ -173,6 +173,12 @@
 
 //@} (Warning Logging macros)
 
+#pragma mark Prototypes
+
+/*! \fn QuietLog (NSString *format, ...)
+ @brief A quieter NSLog()
+ */
+extern void QuietLog (NSString *format, ...);
 
 
 #pragma mark Class interface
@@ -221,7 +227,8 @@
 
 /*!
  \name Enhanced Normal Logging methods. 
- - Always fire
+ - Only fire when either DEBUG_LOG_AUTO_ENABLE is defined or the environment
+ variable NSDebugEnabled exists and is set to YES
  */
 //@{
 
@@ -238,8 +245,8 @@
 
 /*!
  \name WARNING Logging methods. 
- - Always fire
- - Always have 'WARNING' in the output so easier to spot in busy log
+ - Only fire when either DEBUG_LOG_AUTO_ENABLE is defined or the environment
+ variable NSDebugEnabled exists and is set to YES
  */
 //@{
 
@@ -262,6 +269,9 @@
 
 //! @brief Enables/Disables logging at runtime for the debug logging methods
 + (void)setLogOn: (BOOL) logOn;
+
+//! @brief Switches logging methods between using NSLog() or QuietLog()
++ (void) setQuietOn: (BOOL) quietOn;
 
 //! @brief Switches stderr to logging to a user specified file
 + (void)switchLoggingToFile:(NSString *)filePath fromAppDir:(BOOL)useAppDirAsBase;
