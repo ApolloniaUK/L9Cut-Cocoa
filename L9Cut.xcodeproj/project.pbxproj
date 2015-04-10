@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		E7C3D5D61AC91F4300D7C471 /* LNCCutQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = E7C3D5D51AC91F4300D7C471 /* LNCCutQueue.m */; };
 		E7C3D5D91ACAC8DF00D7C471 /* LNCFileListItem.m in Sources */ = {isa = PBXBuildFile; fileRef = E7C3D5D81ACAC8DF00D7C471 /* LNCFileListItem.m */; };
-		E7C3D5DC1ACB53AA00D7C471 /* LNCDebugTools.m in Sources */ = {isa = PBXBuildFile; fileRef = E7C3D5DB1ACB53AA00D7C471 /* LNCDebugTools.m */; };
 		E7C3D5E21AD8257400D7C471 /* ASLog.m in Sources */ = {isa = PBXBuildFile; fileRef = E7C3D5E11AD8257400D7C471 /* ASLog.m */; };
 		E7C3D5E51AD825A700D7C471 /* NSAlert+SynchronousSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = E7C3D5E41AD825A700D7C471 /* NSAlert+SynchronousSheet.m */; };
 		E7C7934D1AB8E80E003909C8 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7C7934C1AB8E80E003909C8 /* Cocoa.framework */; };
@@ -42,8 +41,6 @@
 		E7C3D5D51AC91F4300D7C471 /* LNCCutQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LNCCutQueue.m; sourceTree = "<group>"; };
 		E7C3D5D71ACAC8DF00D7C471 /* LNCFileListItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LNCFileListItem.h; sourceTree = "<group>"; };
 		E7C3D5D81ACAC8DF00D7C471 /* LNCFileListItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LNCFileListItem.m; sourceTree = "<group>"; };
-		E7C3D5DA1ACB53AA00D7C471 /* LNCDebugTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LNCDebugTools.h; sourceTree = "<group>"; };
-		E7C3D5DB1ACB53AA00D7C471 /* LNCDebugTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LNCDebugTools.m; sourceTree = "<group>"; };
 		E7C3D5E01AD8257400D7C471 /* ASLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ASLog.h; path = ASLog/ASLog.h; sourceTree = "<group>"; };
 		E7C3D5E11AD8257400D7C471 /* ASLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ASLog.m; path = ASLog/ASLog.m; sourceTree = "<group>"; };
 		E7C3D5E31AD825A700D7C471 /* NSAlert+SynchronousSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSAlert+SynchronousSheet.h"; path = "NSAlert-SynchronousSheet/NSAlert+SynchronousSheet.h"; sourceTree = "<group>"; };
@@ -156,8 +153,6 @@
 				E7C3D5E61AD825BC00D7C471 /* ASLog */,
 				E7C7935E1AB8E80E003909C8 /* LNCAppDelegate.h */,
 				E7C7935F1AB8E80E003909C8 /* LNCAppDelegate.m */,
-				E7C3D5DA1ACB53AA00D7C471 /* LNCDebugTools.h */,
-				E7C3D5DB1ACB53AA00D7C471 /* LNCDebugTools.m */,
 				E7C3D5D71ACAC8DF00D7C471 /* LNCFileListItem.h */,
 				E7C3D5D81ACAC8DF00D7C471 /* LNCFileListItem.m */,
 				E7C793821AB959F9003909C8 /* LNCCutTask.h */,
@@ -306,7 +301,6 @@
 				E7C3D5E21AD8257400D7C471 /* ASLog.m in Sources */,
 				E7C793601AB8E80E003909C8 /* LNCAppDelegate.m in Sources */,
 				E7C3D5D91ACAC8DF00D7C471 /* LNCFileListItem.m in Sources */,
-				E7C3D5DC1ACB53AA00D7C471 /* LNCDebugTools.m in Sources */,
 				E7C793591AB8E80E003909C8 /* main.m in Sources */,
 				E7C3D5E51AD825A700D7C471 /* NSAlert+SynchronousSheet.m in Sources */,
 				E7C3D5D61AC91F4300D7C471 /* LNCCutQueue.m in Sources */,

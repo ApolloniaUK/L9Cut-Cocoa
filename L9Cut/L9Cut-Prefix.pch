@@ -8,6 +8,13 @@
 	#import <Cocoa/Cocoa.h>
 
 	// project imports
-	#import "LNCDebugTools.h"
+	#if !defined(NDEBUG)
+		// needs these debugging macros defined before ASLog.h is imported or else
+		// the bedbugLog...: method macros will not be compiled out
+		#define BUILD_WITH_DEBUG_LOGGING
+		#define DEBUG_LOG_AUTO_ENABLE
+		#define DEBUG_LOG_QUIET_ENABLE
+	#endif
+	#import "ASLog.h"
 #endif
 
