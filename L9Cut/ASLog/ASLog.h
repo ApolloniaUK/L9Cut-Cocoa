@@ -5,11 +5,11 @@
  
  \brief Interface for ASLog utility class
  
- \author Copyright (c) 2008 by Alan Staniforth
+ \author Copyright (c) 2008 - 2015 by Alan Staniforth
  
  \date 2008-10-12
  
- \version 1.0.1
+ \version 1.1.0
  
  This abstract class enhances the functionality of NSLog in several ways:
  
@@ -49,10 +49,38 @@
  I personally added the versions of the macros that do "ordinary" enhanced logging
  and do not get compiled out.
  
+ License
+ =======
+ 	
+	This library is free software; you can redistribute it and/or
+	modify it under the terms of the GNU Lesser General Public
+	License as published by the Free Software Foundation; either
+	version 2.1 of the License, or (at your option) any later version.
+
+	This library is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+	Lesser General Public License for more details.
+
+	You should have received a copy of the GNU Lesser General Public
+	License along with this library; if not, write to the Free Software
+	Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301
+	USA
+
+ Changes
+ =======
+ 
  2009-08-23 -	Changed +switchLoggingToFile: to +switchLoggingToFile:fromAppDir:
 				to allow the use of the application directory as a base for the
 				logging file path.
  2009-08-23 -	Added #define ASLogVersion to track version
+ 2015-03-30 -	Added QuietLog() - a logging substitute for NSLog() that does 
+ 				not generate so much noise.
+ 2015-04-05 -	Added ability to switch logging functions between NSLog() and 
+ 				QuietLog()
+ 2015-04-08 - 	Added simple call-through to main logging function without file 
+ 				or line number info for the standard logging methods. Also 
+ 				defined accompanying macro.
  
  */
 
