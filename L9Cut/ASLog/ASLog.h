@@ -20,31 +20,32 @@
  -# It is possible to switch the logging from the default destination of stderr to a 
 	user specified file.
  
- This code is based on a number of sources and ideas.The general idea of using an enhanced,
- NSLog, implemented as macros which could be compiled out came from:
+ This code is based on a number of sources and ideas.The general idea of using
+ an enhanced, NSLog, implemented as macros which could be compiled out came from:
  
- http://borkware.com/rants/agentm/mlog/
+ [A Better NSLog()](http://borkware.com/rants/agentm/mlog/)
  
  Adam Knight then presented the same idea, enhanced a little further and already 
  packaged up in a neat utility class:
  
- http://www.hopelessgeek.com/2005/11/18/better-logging
- (now <https://web.archive.org/web/20110712220001/http://www.hopelessgeek.com/2005/11/18/better-logging>)
+ [Better Logging](http://www.hopelessgeek.com/2005/11/18/better-logging)
+ (now [Better Logging - Internet Archive](https://web.archive.org/web/20110712220001/http://www.hopelessgeek.com/2005/11/18/better-logging))
  
  I started with Adam's class and enhanced the macros as suggested on:
  
- http://powerof2games.com/node/10
- (now <http://www.hopelessgeek.com/2005/11/18/better-logging>)
+ [Stupid C++ Tricks: Adventures in Assert](http://powerof2games.com/node/10)
+ (now [Stupid C++ Tricks: Adventures in Assert - Internet Archive](https://web.archive.org/web/20081101231431/http://www.powerof2games.com/node/10))
  
  to be absolutely sure the macros were compiled out with no side effects. I added
  a "Warning" variant, which would not compile out as suggested in:
  
- http://mooseyard.com/Jens/2007/05/uncle-jenss-coding-tips/
- (now <https://web.archive.org/web/20090319202059/http://mooseyard.com/Jens/2007/05/uncle-jenss-coding-tips/>)
+ [Uncle Jens’s Coding Tips](http://mooseyard.com/Jens/2007/05/uncle-jenss-coding-tips/)
+ (now [Uncle Jens’s Coding Tips - Internet Archive](https://web.archive.org/web/20090319202059/http://mooseyard.com/Jens/2007/05/uncle-jenss-coding-tips/))
  
  and the idea of reassigning stderr came from:
  
- http://www.cocoadev.com/index.pl?NSLogToFile
+ [NSLogToFile](http://www.cocoadev.com/index.pl?NSLogToFile)
+ (now [NSLogToFile - Internet Archive](https://web.archive.org/web/20120303210003/http://www.cocoadev.com/index.pl?NSLogToFile))
  
  I personally added the versions of the macros that do "ordinary" enhanced logging
  and do not get compiled out.
