@@ -110,10 +110,16 @@
 //@{
 
 	/*! \def ASDLogOn
-	 @brief Enables debug logging at runtime
+	 @brief Enables debug logging at runtime, compiled out in release builds
 	 
 	 \def ASDLogOff
-	 @brief Disables debug logging at runtime
+	 @brief Disables debug logging at runtime, compiled out in release builds
+	 
+	/*! \def ASDQuietLogOn
+	 @brief Enables quiet logging at runtime, compiled out in release builds
+	 
+	 \def ASDQuietLogOff
+	 @brief Disables quiet logging at runtime, compiled out in release builds
 	 
 	 \def ASDNSLog
 	 @brief No enhancements to NSLog, but will be compiled out in release builds
@@ -128,6 +134,8 @@
 	// BUILD_WITH_DEBUG_LOGGING is defined, compile the macros in
 	#define ASDLogOn() do { [ASLog setLogOn:YES]; } while (0)
 	#define ASDLogOff() do { [ASLog setLogOn:NO]; } while (0)
+	#define ASDQuietLogOn() do { [ASLog setQuietOn:YES]; } while (0)
+	#define ASDQuietLogOff() do { [ASLog setQuietOn:NO]; } while (0)
 	#define ASDNSLog(s, ...) do { [ASLog debugLog:(s),##__VA_ARGS__]; } while (0)
 	#define ASDLog(s, ...) do { [ASLog debugLog:__FILE__ lineNumber:__LINE__ format:(s),##__VA_ARGS__]; } while (0)
 	#define ASDFnLog(s, ...) do { [ASLog debugLog:__FILE__ lineNumber:__LINE__ function:(char*)__FUNCTION__ format:(s),##__VA_ARGS__]; } while (0)
@@ -135,6 +143,8 @@
 	// NOOP definitions of the debug logging macros
 	#define ASDLogOn() do { (void)sizeof(YES); } while (0)
 	#define ASDLogOff() do { (void)sizeof(YES); } while (0)
+	#define ASDQuietLogOn() do { (void)sizeof(YES); } while (0)
+	#define ASDQuietLogOff() do { (void)sizeof(YES); } while (0)
 	#define ASDNSLog(s, ...) do { (void)sizeof(s); } while (0)
 	#define ASDLog(s, ...) do { (void)sizeof(s); } while (0)
 	#define ASDFnLog(s, ...) do { (void)sizeof(s); } while (0)
