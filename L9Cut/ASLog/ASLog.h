@@ -116,7 +116,7 @@
 	 \def ASDLogOff
 	 @brief Disables debug logging at runtime, compiled out in release builds
 	 
-	/*! \def ASDQuietLogOn
+	 \def ASDQuietLogOn
 	 @brief Enables quiet logging at runtime, compiled out in release builds
 	 
 	 \def ASDQuietLogOff
