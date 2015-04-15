@@ -222,7 +222,7 @@ void QuietLog (NSString *format, ...)
     if(__sDebugLoggingOn == NO)
         return;
     va_start(ap, format);
-    file = [NSString stringWithCString:sourceFile];
+    file = [NSString stringWithCString:sourceFile encoding:NSUTF8StringEncoding];
     print = [[NSString alloc] initWithFormat:format arguments:ap];
     va_end(ap);
     
@@ -263,8 +263,8 @@ void QuietLog (NSString *format, ...)
     if(__sDebugLoggingOn == NO)
         return;
     va_start(ap,format);
-    file = [NSString stringWithCString:sourceFile];
-    function = [NSString stringWithCString:functionName];
+    file = [NSString stringWithCString:sourceFile encoding:NSUTF8StringEncoding];
+    function = [NSString stringWithCString:functionName encoding:NSUTF8StringEncoding];
     print = [[NSString alloc] initWithFormat:format arguments:ap];
     va_end(ap);
     
@@ -325,7 +325,7 @@ void QuietLog (NSString *format, ...)
     va_list ap;
     NSString *print, *file;
     va_start(ap, format);
-    file = [NSString stringWithCString:sourceFile];
+    file = [NSString stringWithCString:sourceFile encoding:NSUTF8StringEncoding];
     print = [[NSString alloc] initWithFormat:format arguments:ap];
     va_end(ap);
     
@@ -362,8 +362,8 @@ void QuietLog (NSString *format, ...)
     va_list ap;
     NSString *print, *file, *function;
     va_start(ap,format);
-    file = [NSString stringWithCString:sourceFile];
-    function = [NSString stringWithCString:functionName];
+    file = [NSString stringWithCString:sourceFile encoding:NSUTF8StringEncoding];
+    function = [NSString stringWithCString:functionName encoding:NSUTF8StringEncoding];
     print = [[NSString alloc] initWithFormat:format arguments:ap];
     va_end(ap);
     
@@ -428,7 +428,7 @@ void QuietLog (NSString *format, ...)
     va_list ap;
     NSString *print, *file;
     va_start(ap, format);
-    file = [NSString stringWithCString:sourceFile];
+    file = [NSString stringWithCString:sourceFile encoding:NSUTF8StringEncoding];
     print = [[NSString alloc] initWithFormat:format arguments:ap];
     va_end(ap);
     
@@ -465,8 +465,8 @@ void QuietLog (NSString *format, ...)
     va_list ap;
     NSString *print, *file, *function;
     va_start(ap,format);
-    file = [NSString stringWithCString:sourceFile];
-    function = [NSString stringWithCString:functionName];
+    file = [NSString stringWithCString:sourceFile encoding:NSUTF8StringEncoding];
+    function = [NSString stringWithCString:functionName encoding:NSUTF8StringEncoding];
     print = [[NSString alloc] initWithFormat:format arguments:ap];
     va_end(ap);
     
