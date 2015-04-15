@@ -7,6 +7,7 @@
 //
 
 #import "LNCCutTask.h"
+#import "NSAlert+SynchronousSheet.h"
 
 
 // 'Empty' category to declare "private' methods
