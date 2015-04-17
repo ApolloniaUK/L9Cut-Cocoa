@@ -23,9 +23,9 @@
 		E7C793751AB8E80E003909C8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E7C793731AB8E80E003909C8 /* InfoPlist.strings */; };
 		E7C793771AB8E80E003909C8 /* L9CutTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E7C793761AB8E80E003909C8 /* L9CutTests.m */; };
 		E7C793841AB959F9003909C8 /* LNCCutTask.m in Sources */ = {isa = PBXBuildFile; fileRef = E7C793831AB959F9003909C8 /* LNCCutTask.m */; };
-		E7C8C5EE1AE0DA86003BEF38 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = E7C8C5ED1AE0DA86003BEF38 /* main.c */; };
 		E7C8C5F01AE0DA86003BEF38 /* cl_tool.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = E7C8C5EF1AE0DA86003BEF38 /* cl_tool.1 */; };
 		E7C8C5F61AE0DF2F003BEF38 /* l9cut in Resources */ = {isa = PBXBuildFile; fileRef = E7C8C5EB1AE0DA86003BEF38 /* l9cut */; };
+		E7C8C5FB1AE130B1003BEF38 /* L9CUT.C in Sources */ = {isa = PBXBuildFile; fileRef = E7C8C5F81AE130B1003BEF38 /* L9CUT.C */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,8 +89,11 @@
 		E7C793821AB959F9003909C8 /* LNCCutTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LNCCutTask.h; sourceTree = "<group>"; };
 		E7C793831AB959F9003909C8 /* LNCCutTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LNCCutTask.m; sourceTree = "<group>"; };
 		E7C8C5EB1AE0DA86003BEF38 /* l9cut */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = l9cut; sourceTree = BUILT_PRODUCTS_DIR; };
-		E7C8C5ED1AE0DA86003BEF38 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		E7C8C5EF1AE0DA86003BEF38 /* cl_tool.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = cl_tool.1; sourceTree = "<group>"; };
+		E7C8C5F71AE130B1003BEF38 /* L9CRC.H */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = L9CRC.H; sourceTree = "<group>"; };
+		E7C8C5F81AE130B1003BEF38 /* L9CUT.C */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = L9CUT.C; sourceTree = "<group>"; };
+		E7C8C5F91AE130B1003BEF38 /* L9DATA_D.H */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = L9DATA_D.H; sourceTree = "<group>"; };
+		E7C8C5FA1AE130B1003BEF38 /* L9DATA_P.H */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = L9DATA_P.H; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -233,7 +236,10 @@
 		E7C8C5EC1AE0DA86003BEF38 /* cl-tool */ = {
 			isa = PBXGroup;
 			children = (
-				E7C8C5ED1AE0DA86003BEF38 /* main.c */,
+				E7C8C5F71AE130B1003BEF38 /* L9CRC.H */,
+				E7C8C5F81AE130B1003BEF38 /* L9CUT.C */,
+				E7C8C5F91AE130B1003BEF38 /* L9DATA_D.H */,
+				E7C8C5FA1AE130B1003BEF38 /* L9DATA_P.H */,
 				E7C8C5EF1AE0DA86003BEF38 /* cl_tool.1 */,
 			);
 			path = "cl-tool";
@@ -380,7 +386,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E7C8C5EE1AE0DA86003BEF38 /* main.c in Sources */,
+				E7C8C5FB1AE130B1003BEF38 /* L9CUT.C in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -629,6 +635,7 @@
 				E7C8C5F21AE0DA86003BEF38 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
