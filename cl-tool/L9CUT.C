@@ -139,7 +139,7 @@ jmp_buf env;
 #define MINLIMIT 0x0fd0
 
 /* Amiga version string */
-char *amiverstag = "\0$VER: " PRGNAME " " PRGVERSION " (" PRGDATE ")";
+const char *amiverstag = "\0$VER: " PRGNAME " " PRGVERSION " (" PRGDATE ")";
 
 /* prototypes */
 void ex (char *error);
@@ -170,7 +170,7 @@ int l9cut_main (int argc, char **argv);
 
 /* leave the program due to error */
 void
-ex (char *error)
+ex (const char *error)
 {
   fprintf (stderr, PRGNAME ": %s\n", error);
 #ifdef macintosh

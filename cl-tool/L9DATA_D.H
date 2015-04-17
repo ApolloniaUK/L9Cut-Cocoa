@@ -82,7 +82,7 @@ struct versionbase
 				   1=patched, ---- REMOVED
 				   2=original with Lenslok protection,
 				   3=original with manual protection */
-    char *game;			/* game title and platform */
+    const char *game;			/* game title and platform */
   }
 version_table[] =
 {
