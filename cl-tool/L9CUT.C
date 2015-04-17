@@ -60,6 +60,17 @@
 #include <string.h>
 #include <fcntl.h>
 
+/*
+ OS X Build systems do not define 'macintosh' (which is just as well as most of the
+ things tested for here with 'macintosh' are specific to CodeWarrior and its Sioux 
+ fake console library - they are not needed for this straightforward build of a unix
+ command line tool. We do though need to define LARGE, so we test for __APPLE__ and if 
+ found include TargetConditionals.h so we can check for a Mac build.
+ */
+#if __APPLE__
+	#include <TargetConditionals.h>
+#endif
+
 #ifdef macintosh		/* Mac specific includes */
 #include <Memory.h>
 #include <Sioux.h>
@@ -79,7 +90,7 @@
    #define DKPATCH for David Kinder's split-V4-merging patch
    #define LARGE for Amiga, DJGPP, Macintosh etc.
  */
-#if defined(__DJGPP__) || defined(macintosh)
+#if defined(__DJGPP__) || defined(macintosh) || defined(TARGET_OS_MAC)
 #define LARGE
 #endif
 
