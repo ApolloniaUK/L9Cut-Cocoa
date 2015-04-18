@@ -37,9 +37,7 @@
 	NSMutableString *gameFile = [[NSMutableString alloc] initWithString:@"/Users/alan/Documents/Development/MyProjects/L9Cut/L9test Folder/SNOW_P.V2"];
 	LNCFileListItem *newItem = [[LNCFileListItem alloc] init];
 	[newItem setSrcFilePath:gameFile];
-	ASDLog(@"gameFile retain count: %lu.", [gameFile retainCount]);
 	[gameFile autorelease];
-	ASFlLog(@"gameFile retain count: %lu.", [gameFile retainCount]);
 	[newItem setStatus:LNCCutStatusWaiting];
 	[_fileList addObject:newItem];
 	[_cutQueue addFileToQueue:gameFile];

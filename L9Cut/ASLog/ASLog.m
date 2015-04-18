@@ -149,9 +149,11 @@ void QuietLog (NSString *format, ...)
     if(strcmp(env, "YES") == 0)
         __sDebugLoggingOn = YES;
 	
-	// initialise the QuietLog() selection static boolean
+	// initialise the logging function selection static boolean
 	#ifdef DEBUG_LOG_QUIET_ENABLE
 		__sCurLogFunc = QuietLog;
+	#else
+		__sCurLogFunc = NSLog;
 	#endif
 	
 	// Save the current stderr output for later use
