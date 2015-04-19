@@ -10,13 +10,20 @@
 #import "LNCAppDelegate.h"
 
 
-@interface LNCCutQueue : NSObject
+@interface LNCCutQueue : NSObject {
+	NSMutableArray *filesToCut;
+	LNCAppDelegate *appDelegate;
+	BOOL busy;
+}
 
-@property (assign) NSMutableArray *filesToCut;
-@property (assign) LNCAppDelegate *appDelegate;
-@property (nonatomic,getter = isBusy) BOOL busy;
-
+// Creation methods
 - (id)initWithNotifyTarget:(LNCAppDelegate *)cutFinishedTarget;
+
+// Accessor methods
+- (BOOL)isBusy;
+- (void)setBusy:(BOOL)flag;
+
+// Operational methods
 - (void)addFileToQueue:(NSString *)inFilePath;
 - (void)run;
 - (void)curTaskDone:(NSTimer *)timer;

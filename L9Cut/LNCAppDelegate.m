@@ -20,38 +20,56 @@
 
 @implementation LNCAppDelegate
 
+#pragma mark App delegate methods
+
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
 	// Insert code here to initialize your application
 }
 
+#pragma mark Target methods
 -(IBAction)runCutTask:(id)sender
 {
-	if (_cutQueue == nil) {
-		_cutQueue = [[LNCCutQueue alloc] initWithNotifyTarget:self];
+	if (cutQueue == nil) {
+		cutQueue = [[LNCCutQueue alloc] initWithNotifyTarget:self];
 	}
-	if (nil == _fileList) {
-		_fileList = [[NSMutableArray alloc] init];
+	if (nil == fileList) {
+		fileList = [[NSMutableArray alloc] init];
 	}
 	// create first test item and add to run queue
-	NSMutableString *gameFile = [[NSMutableString alloc] initWithString:@"/Users/alan/Documents/Development/MyProjects/L9Cut/L9test Folder/SNOW_P.V2"];
+	NSMutableString *gameFile = [[[NSMutableString alloc] initWithString:@"/Users/alan/Documents/Development/MyProjects/L9Cut/L9test Folder/SNOW_P.V2"] autorelease];
 	LNCFileListItem *newItem = [[LNCFileListItem alloc] init];
 	[newItem setSrcFilePath:gameFile];
-	[gameFile autorelease];
 	[newItem setStatus:LNCCutStatusWaiting];
-	[_fileList addObject:newItem];
-	[_cutQueue addFileToQueue:gameFile];
+	[fileList addObject:[newItem autorelease]];
+	[cutQueue addFileToQueue:gameFile];
 	// create second test item and add to run queue
 	gameFile = [[NSMutableString alloc] initWithString:@"/Users/alan/Documents/Development/MyProjects/L9Cut/L9test Folder/WORM.Z80" ];
 	newItem = [[LNCFileListItem alloc] init];
 	[newItem setSrcFilePath:gameFile];
-	[gameFile autorelease];
+	[gameFile release];
 	[newItem setStatus:LNCCutStatusWaiting];
-	[_fileList addObject:newItem];
-	[_cutQueue addFileToQueue:gameFile];
+	[fileList addObject:[newItem autorelease]];
+	[cutQueue addFileToQueue:gameFile];
 	// start the queue processing
-	[_cutQueue run];
+	[cutQueue run];
 }
+
+#pragma mark Accessors
+
+- (NSTextView *)outputText
+{
+    return [[outputText retain] autorelease];
+}
+- (void)setOutputText:(NSTextView *)anOutputText
+{
+    if (outputText != anOutputText) {
+        [outputText release];
+        outputText = [anOutputText retain];
+    }
+}
+
+#pragma mark Operational methods
 
 -(void)cutTaskDone:(LNCCutTask *)doneTask
 {
@@ -77,17 +95,17 @@
 
 - (void)showTaskTextOutput:(id)outStr
 {
-	self.outputText.string = [self.outputText.string stringByAppendingString:[NSString stringWithFormat:@"%@", outStr]];
+	[[self outputText] setString:[[[self outputText] string] stringByAppendingString:[NSString stringWithFormat:@"%@",outStr]]];
 	// Scroll to end of outputText field
 	NSRange range;
-	range = NSMakeRange([self.outputText.string length], 0);
-	[self.outputText scrollRangeToVisible:range];
+	range = NSMakeRange([[[self outputText] string] length], 0);
+	[[self outputText] scrollRangeToVisible:range];
 }
 
 - (LNCFileListItem *)findListItemMatchingString:(NSString *)inString
 {
 	LNCFileListItem *retVal = nil;
-	for (LNCFileListItem *curItem in _fileList) {
+	for (LNCFileListItem *curItem in fileList) {
 		NSString *tmpListStr = [curItem srcFilePath];
 		if (tmpListStr == inString) {
 			retVal = curItem;

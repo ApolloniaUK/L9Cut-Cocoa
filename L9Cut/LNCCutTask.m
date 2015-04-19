@@ -20,7 +20,7 @@
 
 @implementation LNCCutTask
 
-#pragma mark Objject creation and destruction
+#pragma mark Creation and destruction
 
 - (id)init
 {
@@ -31,14 +31,14 @@
 {
 	self = [super init];
 	if (nil != self) {
-		self.taskArgs = args;
+		[self setTaskArgs:args];
 		// retain the object we must notify of thread exit so it can't disappear from under us
-		self.notifyOnExit = target;
-		self.threadExitSelector = selector;
+		[self setNotifyOnExit:target];
+		[self setThreadExitSelector:selector];
 		// initialize the data object to collect the tool output
-		self.outData = [[NSMutableData alloc] initWithLength:0];
+		outData = [[NSMutableData alloc] initWithLength:0];
 		
-		self.running = NO;
+		running = NO;
 	}
 	return self;
 }
@@ -46,56 +46,157 @@
 - (void)dealloc
 {
 	// release the object we must notify of thread exit
-	[self.notifyOnExit release];
-	[self.taskArgs release];
+	[notifyOnExit release];
+	[taskArgs release];
 	// for some weird reason, despite getting this with a
-	[self.outData release];
+	[outData release];
 	
 	[super dealloc];
+}
+
+#pragma mark Accessor methods
+
+- (NSArray *)taskArgs
+{
+    return [[taskArgs retain] autorelease];
+}
+- (void)setTaskArgs:(NSArray *)aTaskArgs
+{
+    if (taskArgs != aTaskArgs) {
+        [taskArgs release];
+        taskArgs = [aTaskArgs retain];
+    }
+}
+
+- (id)notifyOnExit
+{
+    return [[notifyOnExit retain] autorelease];
+}
+- (void)setNotifyOnExit:(id)aNotifyOnExit
+{
+    if (notifyOnExit != aNotifyOnExit) {
+        [notifyOnExit release];
+        notifyOnExit = [aNotifyOnExit retain];
+    }
+}
+
+- (NSMutableData *)outData
+{
+    return [[outData retain] autorelease];
+}
+- (void)setOutData:(NSMutableData *)anOutData
+{
+    if (outData != anOutData) {
+        [outData release];
+        outData = [anOutData retain];
+    }
+}
+
+- (SEL)threadExitSelector
+{
+    return threadExitSelector;
+}
+- (void)setThreadExitSelector:(SEL)aThreadExitSelector
+{
+    threadExitSelector = aThreadExitSelector;
+}
+
+- (NSInteger)exitStatus
+{
+    return exitStatus;
+}
+- (void)setExitStatus:(NSInteger)anExitStatus
+{
+    exitStatus = anExitStatus;
+}
+
+- (BOOL)isRunning
+{
+    return running;
+}
+- (void)setRunning:(BOOL)flag
+{
+    running = flag;
+}
+
+- (NSTask *)cutTask
+{
+    return [[cutTask retain] autorelease];
+}
+- (void)setCutTask:(NSTask *)aCutTask
+{
+    if (cutTask != aCutTask) {
+        [cutTask release];
+        cutTask = [aCutTask retain];
+    }
+}
+
+- (NSPipe *)outputPipe
+{
+    return [[outputPipe retain] autorelease];
+}
+- (void)setOutputPipe:(NSPipe *)anOutputPipe
+{
+    if (outputPipe != anOutputPipe) {
+        [outputPipe release];
+        outputPipe = [anOutputPipe retain];
+    }
+}
+
+- (NSPipe *)inPipe
+{
+    return [[inPipe retain] autorelease];
+}
+- (void)setInPipe:(NSPipe *)anInPipe
+{
+    if (inPipe != anInPipe) {
+        [inPipe release];
+        inPipe = [anInPipe retain];
+    }
 }
 
 #pragma mark Cut task methods
 
 - (void)runTask:(id)sender
 {
-	[NSThread detachNewThreadSelector:@selector(doCut:) toTarget:self withObject:self.taskArgs];
+	[NSThread detachNewThreadSelector:@selector(doCut:) toTarget:self withObject:[self taskArgs]];
 }
 
 - (void)doCut:(id)arguments
 {
-	self.running = YES;
+	[self setRunning:YES];
 	NSAutoreleasePool *localPool = [NSAutoreleasePool new];
 	NSString *toolPath = [NSString stringWithFormat:@"%@", [[NSBundle mainBundle] pathForResource:@"l9cut" ofType:nil]];
 	
 	@try {
-		_cutTask = [[NSTask alloc] init];
-		[_cutTask setLaunchPath:toolPath];
-		[_cutTask setArguments:arguments];
+		cutTask = [[NSTask alloc] init];
+		[cutTask setLaunchPath:toolPath];
+		[cutTask setArguments:arguments];
 		
 		// Output Handling
 		//1
-		//_outputPipe = [[NSPipe alloc] init];
-		_outputPipe = [NSPipe new];
-		[_cutTask setStandardError:_outputPipe];
-		// [[_outputPipe fileHandleForReading] release];
-		// _cutTask has taken ownership of outputPipe so release it
+		//outputPipe = [[NSPipe alloc] init];
+		outputPipe = [NSPipe new];
+		[cutTask setStandardError:outputPipe];
+		// [[outputPipe fileHandleForReading] release];
+		// cutTask has taken ownership of outputPipe so release it
 		// (thanks to Apple's Quartz Composer CommandLineTool)
-		[_outputPipe release];
-		_inPipe = [NSPipe new];
-		[_cutTask setStandardInput:_inPipe];
-		[_inPipe release];
+		[outputPipe release];
+		inPipe = [NSPipe new];
+		[cutTask setStandardInput:inPipe];
+		[inPipe release];
 		
 		//2
-		[[_outputPipe fileHandleForReading] waitForDataInBackgroundAndNotify];
+		[[outputPipe fileHandleForReading] waitForDataInBackgroundAndNotify];
 		
 		//3
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleTaskOutputNotification:) name:NSFileHandleDataAvailableNotification object:nil];
 		
 		//3
-		[_cutTask launch];
+		[cutTask launch];
 		
 		//4
-		[_cutTask waitUntilExit];
+		[cutTask waitUntilExit];
 		//[NSThread sleepForTimeInterval:2]; // THIS LINE FOR TESTING
 	}
 	//4
@@ -113,10 +214,10 @@
 		 */
 		[self readDataForNotification:nil toFileEnd:YES];
 		// probably don't need to close these file handles but Apple's example code does
-		[[_outputPipe fileHandleForReading] closeFile];
-		[[_outputPipe fileHandleForWriting] closeFile];
-		[[_inPipe fileHandleForReading] closeFile];
-		[[_inPipe fileHandleForWriting] closeFile];
+		[[outputPipe fileHandleForReading] closeFile];
+		[[outputPipe fileHandleForWriting] closeFile];
+		[[inPipe fileHandleForReading] closeFile];
+		[[inPipe fileHandleForWriting] closeFile];
 		/*
 		 need to release the file handle directly because when (earlier) it is sent the
 		 waitForDataInBackgroundAndNotify: message its retain count increases by one and
@@ -130,13 +231,13 @@
 		 NSConcreteFileHandle	1		-[NSConcretePipe init]
 		 AEListImpl				1		-[NSConcreteFileHandle performActivity:modes:]
 		 */
-		[[_outputPipe fileHandleForReading] release];
-		_exitStatus = [_cutTask terminationStatus];
-		[_cutTask release];
-		NSTimer *doneTimer = [NSTimer timerWithTimeInterval:0.1 target:_notifyOnExit selector:_threadExitSelector userInfo:self repeats:YES];
+		[[outputPipe fileHandleForReading] release];
+		exitStatus = [cutTask terminationStatus];
+		[cutTask release];
+		NSTimer *doneTimer = [NSTimer timerWithTimeInterval:0.1 target:notifyOnExit selector:threadExitSelector userInfo:self repeats:YES];
 		[[NSRunLoop mainRunLoop] addTimer:doneTimer forMode:NSDefaultRunLoopMode];
 		[localPool drain];
-		self.running = NO;
+		[self setRunning:NO];
 	}
 }
 
@@ -151,11 +252,11 @@
 		NSFileHandle* fileHandle;
 		NSData *output;
 		if (finish) {
-			output = [[_outputPipe fileHandleForReading] readDataToEndOfFile];
+			output = [[outputPipe fileHandleForReading] readDataToEndOfFile];
 		} else {
-			output = [[_outputPipe fileHandleForReading] availableData];
+			output = [[outputPipe fileHandleForReading] availableData];
 		}
-		[self.outData appendData:output];
+		[[self outData] appendData:output];
 		NSString *outStr = [[NSString alloc] initWithData:output encoding:NSUTF8StringEncoding];
 		//5
 		NSArray *lines = [outStr componentsSeparatedByString:@"\n"];
@@ -181,23 +282,23 @@
 				theReply = 'n';
 			}
 			// write to stdin
-			fileHandle = [_inPipe fileHandleForWriting];
+			fileHandle = [inPipe fileHandleForWriting];
 			if(fileHandle) {
 				@try {
 					NSData *inData = [NSData dataWithBytes:&theReply length:1];
 					[fileHandle writeData:inData];
 				}
 				@catch (NSException *exception) {
-					[_cutTask terminate];
-					[_cutTask interrupt];
+					[cutTask terminate];
+					[cutTask interrupt];
 				}
 			}
 			char replyChars[2];
 			replyChars[0] = theReply; replyChars[1] = '\n';
-			[self.outData appendBytes:&replyChars length:2];
-			[[_outputPipe fileHandleForReading] waitForDataInBackgroundAndNotify];
+			[[self outData] appendBytes:&replyChars length:2];
+			[[outputPipe fileHandleForReading] waitForDataInBackgroundAndNotify];
 		}
-		[[_outputPipe fileHandleForReading] waitForDataInBackgroundAndNotify];
+		[[outputPipe fileHandleForReading] waitForDataInBackgroundAndNotify];
 		[outStr release];
 	}
 	@catch (NSException *exception) {
