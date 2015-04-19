@@ -34,6 +34,7 @@
 {
 	[filesToCut release];
 	[appDelegate release];
+	[curTask release];
 	[super dealloc];
 }
 
@@ -48,6 +49,18 @@
     busy = flag;
 }
 
+- (LNCCutTask *)curTask
+{
+    return [[curTask retain] autorelease];
+}
+- (void)setCurTask:(LNCCutTask *)aCurTask
+{
+    if (curTask != aCurTask) {
+        [curTask release];
+        curTask = [aCurTask retain];
+    }
+}
+
 #pragma mark Operational methods
 
 - (void)addFileToQueue:(NSString *)inFilePath
@@ -55,18 +68,23 @@
 	[filesToCut addObject:inFilePath];
 }
 
+- (void)startNextTask
+{
+	NSString *filePath = [filesToCut objectAtIndex:0];
+	NSString *gameFilePath = [filePath stringByAppendingString:@".l9game"];
+	NSArray *args = [NSArray arrayWithObjects:filePath, gameFilePath, nil];
+	[filesToCut removeObjectAtIndex:0];
+	[self setCurTask:[[[LNCCutTask alloc] initWithArgs:args notifyOnExit:self threadExitSelector:@selector(curTaskDone:)] autorelease]];
+	if (nil != curTask) {
+		[curTask runTask:self];
+	}
+}
+
 - (void)run
 {
 	if (0 != [filesToCut count]) {
 		busy = YES;
-		NSString *filePath = [filesToCut objectAtIndex:0];
-		NSString *gameFilePath = [filePath stringByAppendingString:@".l9game"];
-		NSArray *args = [NSArray arrayWithObjects:filePath, gameFilePath, nil];
-		[filesToCut removeObjectAtIndex:0];
-		LNCCutTask *newCut = [[LNCCutTask alloc] initWithArgs:args notifyOnExit:self threadExitSelector:@selector(curTaskDone:)];
-		if (nil != newCut) {
-			[newCut runTask:self];
-		}
+		[self startNextTask];
 	}
 }
 
@@ -75,27 +93,21 @@
 	// Called by timer scheduled by an LNCCutTask object as its conversion thread
 	// exits. Need to check (from the LNCCutTask ivar 'isRunning' that the conversion
 	// thread has finished before releasing the task.
-	LNCCutTask *curTask = [timer userInfo];
 	if (![curTask isRunning]) {
 		// kill the timer now the NSTask doing the cut has exited.
 		[timer invalidate];
 		// pass the task to the app delegate to handle output/display updating &c
 		[appDelegate cutTaskDone:curTask];
 		
-		// the thread has exited so safe to release the cut task
-		[curTask release];
-		// if no more files to cut, clear busy flag
+		// More files to cut?
 		if ([filesToCut count] == 0) {
+			// No, clear busy flag
 			busy = NO;
+			// release the last cut task
+			[self setCurTask:nil];
 		} else {
-			NSString *filePath = [filesToCut objectAtIndex:0];
-			NSString *gameFilePath = [filePath stringByAppendingString:@".l9game"];
-			NSArray *args = [NSArray arrayWithObjects:filePath, gameFilePath, nil];
-			[filesToCut removeObjectAtIndex:0];
-			LNCCutTask *newCut = [[LNCCutTask alloc] initWithArgs:args notifyOnExit:self threadExitSelector:@selector(curTaskDone:)];
-			if (nil != newCut) {
-				[newCut runTask:self];
-			}
+			// Yes, start the next one running
+			[self startNextTask];
 		}
 	}
 }

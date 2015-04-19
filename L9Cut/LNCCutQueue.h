@@ -7,12 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
+
 #import "LNCAppDelegate.h"
+#import "LNCCutTask.h"
 
 
 @interface LNCCutQueue : NSObject {
 	NSMutableArray *filesToCut;
 	LNCAppDelegate *appDelegate;
+	LNCCutTask *curTask;
 	BOOL busy;
 }
 
@@ -22,6 +25,8 @@
 // Accessor methods
 - (BOOL)isBusy;
 - (void)setBusy:(BOOL)flag;
+- (LNCCutTask *)curTask;
+- (void)setCurTask:(LNCCutTask *)aCurTask;
 
 // Operational methods
 - (void)addFileToQueue:(NSString *)inFilePath;
