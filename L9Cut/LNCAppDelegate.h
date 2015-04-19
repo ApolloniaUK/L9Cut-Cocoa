@@ -11,15 +11,23 @@
 
 @class LNCCutQueue;
 
-@interface LNCAppDelegate : NSObject <NSApplicationDelegate>
-@property (assign) IBOutlet NSButton *runButton;
-@property (assign) IBOutlet NSWindow *window;
-@property (assign) LNCCutQueue *cutQueue;
-@property (assign) NSMutableArray *fileList;
-@property (nonatomic) BOOL taskIsRunning;
-@property (unsafe_unretained) IBOutlet NSTextView *outputText;
+@interface LNCAppDelegate : NSObject <NSApplicationDelegate> {
+	IBOutlet NSButton *runButton;
+	IBOutlet NSWindow *window;
+	LNCCutQueue *cutQueue;
+	NSMutableArray *fileList;
+	BOOL taskIsRunning;
+	IBOutlet NSTextView *outputText;
+}
 
+// Target methods
 -(IBAction)runCutTask:(id)sender;
+
+// Accessor methods
+- (NSTextView *)outputText;
+- (void)setOutputText:(NSTextView *)anOutputText;
+
+// Operational methods
 -(void)cutTaskDone:(LNCCutTask *)doneTask;
 -(void)showTaskTextOutput:(id)outStr;
 

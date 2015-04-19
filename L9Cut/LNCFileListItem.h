@@ -16,11 +16,21 @@ typedef enum {
 	LNCCutStatusFailed
 } LNCCutItemStatus;
 
-@interface LNCFileListItem : NSObject
+@interface LNCFileListItem : NSObject {
+	NSString *srcFilePath;
+	NSString *dstFilePath;
+	NSString *outText;
+	LNCCutItemStatus status;
+}
 
-@property (retain) NSString *srcFilePath;
-@property (retain) NSString *dstFilePath;
-@property (retain) NSString *outText;
-@property (assign) LNCCutItemStatus status;
+// Accessor methods
+- (NSString *)srcFilePath;
+- (void)setSrcFilePath:(NSString *)aSrcFilePath;
+- (NSString *)dstFilePath;
+- (void)setDstFilePath:(NSString *)aDstFilePath;
+- (NSString *)outText;
+- (void)setOutText:(NSString *)anOutText;
+- (LNCCutItemStatus)status;
+- (void)setStatus:(LNCCutItemStatus)aStatus;
 
 @end
