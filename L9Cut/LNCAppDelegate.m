@@ -12,8 +12,8 @@
 #import "ASLog.h"
 
 
-// 'Empty' category to declare "private' methods
-@interface LNCCutTask ()
+// 'Empty' category to declare "private" methods
+@interface LNCAppDelegate ()
 - (LNCFileListItem *)findListItemMatchingString:(NSString *)inString;
 @end
 
