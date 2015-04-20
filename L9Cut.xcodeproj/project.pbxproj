@@ -517,13 +517,18 @@
 		E7C7937B1AB8E80E003909C8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "L9Cut/L9Cut-Prefix.pch";
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "L9Cut/L9Cut-Info.plist";
+				LD_DEPENDENCY_INFO_FILE = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx10.6;
+				"SDKROOT[arch=i386]" = macosx;
+				"SDKROOT[arch=x86_64]" = macosx;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -531,13 +536,22 @@
 		E7C7937C1AB8E80E003909C8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					ppc,
+					i386,
+					x86_64,
+				);
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "L9Cut/L9Cut-Prefix.pch";
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "L9Cut/L9Cut-Info.plist";
+				LD_DEPENDENCY_INFO_FILE = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx10.6;
+				"SDKROOT[arch=i386]" = macosx;
+				"SDKROOT[arch=x86_64]" = macosx;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -593,7 +607,6 @@
 				);
 				GCC_VERSION = "";
 				LD_DEPENDENCY_INFO_FILE = "";
-				LD_MAP_FILE_PATH = "$(TARGET_TEMP_DIR)/$(PRODUCT_NAME)-LinkMap-$(CURRENT_VARIANT)-$(CURRENT_ARCH).txt";
 				MACOSX_DEPLOYMENT_TARGET = 10.4;
 				PRODUCT_NAME = l9cut;
 				SDKROOT = macosx10.6;
@@ -611,7 +624,6 @@
 				CLANG_ENABLE_OBJC_ARC = NO;
 				GCC_VERSION = "";
 				LD_DEPENDENCY_INFO_FILE = "";
-				LD_MAP_FILE_PATH = "$(TARGET_TEMP_DIR)/$(PRODUCT_NAME)-LinkMap-$(CURRENT_VARIANT)-$(CURRENT_ARCH).txt";
 				MACOSX_DEPLOYMENT_TARGET = 10.4;
 				PRODUCT_NAME = l9cut;
 				SDKROOT = macosx10.6;
