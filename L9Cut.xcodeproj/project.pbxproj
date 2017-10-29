@@ -26,6 +26,7 @@
 		E7C8C5F01AE0DA86003BEF38 /* cl_tool.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = E7C8C5EF1AE0DA86003BEF38 /* cl_tool.1 */; };
 		E7C8C5F61AE0DF2F003BEF38 /* l9cut in Resources */ = {isa = PBXBuildFile; fileRef = E7C8C5EB1AE0DA86003BEF38 /* l9cut */; };
 		E7C8C5FB1AE130B1003BEF38 /* L9CUT.C in Sources */ = {isa = PBXBuildFile; fileRef = E7C8C5F81AE130B1003BEF38 /* L9CUT.C */; };
+		E7DC895E1FA6065A00746298 /* Notes.txt in Resources */ = {isa = PBXBuildFile; fileRef = E7DC895D1FA6065A00746298 /* Notes.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -94,6 +95,7 @@
 		E7C8C5F81AE130B1003BEF38 /* L9CUT.C */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = L9CUT.C; sourceTree = "<group>"; };
 		E7C8C5F91AE130B1003BEF38 /* L9DATA_D.H */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = L9DATA_D.H; sourceTree = "<group>"; };
 		E7C8C5FA1AE130B1003BEF38 /* L9DATA_P.H */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = L9DATA_P.H; sourceTree = "<group>"; };
+		E7DC895D1FA6065A00746298 /* Notes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Notes.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -211,6 +213,7 @@
 				E7C793581AB8E80E003909C8 /* main.m */,
 				E7C7935A1AB8E80E003909C8 /* L9Cut-Prefix.pch */,
 				E7C7935B1AB8E80E003909C8 /* Credits.rtf */,
+				E7DC895D1FA6065A00746298 /* Notes.txt */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -345,6 +348,7 @@
 				E7C793571AB8E80E003909C8 /* InfoPlist.strings in Resources */,
 				E7C793651AB8E80E003909C8 /* Images.xcassets in Resources */,
 				E7C7935D1AB8E80E003909C8 /* Credits.rtf in Resources */,
+				E7DC895E1FA6065A00746298 /* Notes.txt in Resources */,
 				E7C793631AB8E80E003909C8 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -519,6 +523,7 @@
 			buildSettings = {
 				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "L9Cut/L9Cut-Prefix.pch";
@@ -542,6 +547,7 @@
 					x86_64,
 				);
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Developer ID Application: A Staniforth (4989E9LQXQ)";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "L9Cut/L9Cut-Prefix.pch";

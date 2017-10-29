@@ -974,12 +974,12 @@ call_l9cut (char *inSourcePathName, char *inDestPathName)
 
 /*>>>>>>>>>>>>>>>>>>>>> main <<<<<<<<<<<<<<<<<<<<< */
 
-#ifdef macintosh
-int
-l9cut_main (int argc, char **argv)
-#else
+#ifndef macintosh
 int
 main (int argc, char **argv)
+#else
+int
+l9cut_main (int argc, char **argv)
 #endif
 {
   type32 infilelength;
