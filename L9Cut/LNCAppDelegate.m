@@ -37,14 +37,14 @@
 		fileList = [[NSMutableArray alloc] init];
 	}
 	// create first test item and add to run queue
-	NSMutableString *gameFile = [[[NSMutableString alloc] initWithString:@"/Users/alan/Documents/Development/MyProjects/L9Cut/(L9test Folder)/SNOW_P.V2"] autorelease];
+	NSMutableString *gameFile = [[[NSMutableString alloc] initWithString:@"/Users/alan/Documents/Development/MyProjects/L9Cut Cocoa/(L9test Folder)/SNOW_P.V2"] autorelease];
 	LNCFileListItem *newItem = [[LNCFileListItem alloc] init];
 	[newItem setSrcFilePath:gameFile];
 	[newItem setStatus:LNCCutStatusWaiting];
 	[fileList addObject:[newItem autorelease]];
 	[cutQueue addFileToQueue:gameFile];
 	// create second test item and add to run queue
-	gameFile = [[NSMutableString alloc] initWithString:@"/Users/alan/Documents/Development/MyProjects/L9Cut/(L9test Folder)/WORM.Z80" ];
+	gameFile = [[NSMutableString alloc] initWithString:@"/Users/alan/Documents/Development/MyProjects/L9Cut Cocoa/(L9test Folder)/WORM.Z80" ];
 	newItem = [[LNCFileListItem alloc] init];
 	[newItem setSrcFilePath:gameFile];
 	[gameFile release];
