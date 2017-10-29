@@ -1,3 +1,4 @@
 NSCondition examples:
 https://stackoverflow.com/questions/6704072/how-do-i-use-nsconditionlock-or-nscondition
 https://stackoverflow.com/questions/11781018/using-nscondition-properly
+http://www.uchidacoonga.com/2014/05/28/blocking-queue-in-objective-c/
